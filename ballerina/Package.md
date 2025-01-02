@@ -27,15 +27,15 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Go to Test Account section from the left sidebar.
 
-   <img src=https://raw.githubusercontent.com/sajitha-tj/module-ballerinax-hubspot.crm.lists/main/docs/setup/resources/test_acc_1.png alt="Hubspot developer portal" style="width: 70%;">
+   <img src=/home/harith/Documents/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_1.png style="width: 70%;">
 
 2. Click Create developer test account.
 
-   <img src=https://raw.githubusercontent.com/sajitha-tj/module-ballerinax-hubspot.crm.lists/main/docs/setup/resources/test_acc_2.png alt="Hubspot developer testacc" style="width: 70%;">
+   <img src=/home/harith/Documents/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   <img src=https://raw.githubusercontent.com/sajitha-tj/module-ballerinax-hubspot.crm.lists/main/docs/setup/resources/test_acc_3.png alt="Hubspot developer testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
 
 
 
