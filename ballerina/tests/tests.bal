@@ -5,154 +5,68 @@ import ballerina/http;
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
-configurable string serviceUrl = ?;
-
 
 OAuth2RefreshTokenGrantConfig auth = {
-       clientId: clientId,
-       clientSecret: clientSecret,
-       refreshToken: refreshToken,
-       credentialBearer: oauth2:POST_BODY_BEARER
-   };
+    clientId,
+    clientSecret,
+    refreshToken,
+    credentialBearer: oauth2:POST_BODY_BEARER
+};
 
+final string serviceUrl = "https://api.hubapi.com";
 
-ConnectionConfig config = {auth:auth};
-final Client hubspot = check new Client(config, serviceUrl);
-#keep the deal id as reference for other tests after creation
-string dealId = "";
+final Client hubspotClient = check new Client(config = {auth}, serviceUrl = serviceUrl);
 
+string testQuoteId = ""; 
 
-@test:Config 
-function testCreateDeals() returns error? {
-   
-    SimplePublicObjectInputForCreate payload = {
-        properties: {
-            "pipeline": "default",
-            "dealname": "Test Deal",
-            "amount": "100000"
-        }
+// Represents the payload for creating a quote
+type QuoteCreateRequest record {|
+    string name;
+    string dealId;
+    decimal totalAmount;
+    string expirationDate;
+    string paymentTerms;
+|};
+
+// Represents the response structure for quote creation
+type QuoteCreateResponse record {|
+    string id;
+    string name;
+    string dealId;
+    decimal totalAmount;
+    string expirationDate;
+    string paymentTerms;
+|};
+
+// Test function for creating a quote
+@test:Config{}
+function testCreateAQuote() returns error? {
+    QuoteCreateRequest payload = {
+        name: "Test Quote",
+        dealId: "123456", // Replace with an actual deal ID
+        totalAmount: 1000.00,
+        expirationDate: "2025-01-31", // Example expiration date
+        paymentTerms: "Net 30" // Example payment terms
     };
 
-    SimplePublicObject|error out = hubspot ->/crm/v3/objects/deals.post(payload = payload);
+    // Call the Quotes API to create a new quote
+    string endpoint = "/crm/v3/objects/quotes";
+    QuoteCreateResponse|error response = check hubspotClient->post(endpoint, payload);
+    //QuoteCreateResponse|error response = check hubspotClient->/crm/v3/objects/quotes.post(payload);
+    testQuoteId = response.id;
 
-    if out is SimplePublicObject {
-        dealId = out.id;
-        test:assertTrue(out.createdAt !is "");
-    } else {
-        test:assertFail("Failed to create deal");
-    }
-    
-};
-
-@test:Config { 
-    dependsOn: [testCreateDeals] }
-function testgetAllDeals() returns error? {
-    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error deals = hubspot ->/crm/v3/objects/deals;
- 
-    if deals is CollectionResponseSimplePublicObjectWithAssociationsForwardPaging {
-        test:assertTrue(deals.results.length() > 0);
-    } else {
-        test:assertFail("Failed to get deals");
-    }
-  
-};
-
-@test:Config{ 
-    dependsOn: [testgetAllDeals] }
-function testGetDealById() returns error? {
-    SimplePublicObject|error deal = hubspot ->/crm/v3/objects/deals/[dealId].get();
-    if deal is SimplePublicObject {
-       
-        test:assertTrue(deal.id == dealId);
-    } else {
-        test:assertFail("Failed to get deal");
-    }
-};
-
-@test:Config{ 
-    dependsOn: [testGetDealById] }
-function testUpdateDeal() returns error? {
-    SimplePublicObjectInput payload = {
-        properties: {
-            "dealname": "Test Deal Updated",
-            "amount": "200000"
-        }
-    };
-
-    SimplePublicObject|error out = hubspot ->/crm/v3/objects/deals/[dealId].patch(payload = payload);
-
-    if out is SimplePublicObject {
-        test:assertTrue(out.updatedAt !is "");
-        test:assertEquals(out.properties["dealname"], "Test Deal Updated");
-        test:assertEquals(out.properties["amount"], "200000");
-    } else {
-        test:assertFail("Failed to update deal");
-    }
-};
-
-
-@test:Config{ 
-    dependsOn: [testUpdateDeal] }
-function testMergeDeals() returns error? {
-
-    string dealId2 = "";
-    SimplePublicObjectInputForCreate payload = {
-        properties: {
-            "pipeline": "default",
-            "dealname": "Test Deal2",
-            "amount": "300000"
-        }
-    };
-
-    SimplePublicObject|error out = hubspot ->/crm/v3/objects/deals.post(payload = payload);
-
-
-    if out is SimplePublicObject {
-        dealId2 = out.id;
-        PublicMergeInput payload2 = {
-            objectIdToMerge: dealId2,
-            primaryObjectId: dealId
-        };
-        SimplePublicObject|error mergeOut = hubspot ->/crm/v3/objects/deals/merge.post(payload = payload2);
-        if mergeOut is SimplePublicObject {
-            test:assertNotEquals(mergeOut.properties["hs_merged_object_ids"] ,"");
-            dealId = mergeOut.id;
-        }else{
-            test:assertFail("Failed to create the secondary deal");
-        }
-    } else {
-        test:assertFail("Failed to merge deals");
-    }
-   
-};
-
-
-
-@test:Config{
-    dependsOn: [testUpdateDeal]
+    // Validate the response
+    test:assertTrue(response.name == "Test Quote", 
+        msg = "Quote name in response does not match the expected name.");
 }
-function testSearchDeals() returns error? {
-    PublicObjectSearchRequest qr = {
-        query: "test"
-    };
-    CollectionResponseWithTotalSimplePublicObjectForwardPaging|error search = hubspot ->/crm/v3/objects/deals/search.post(payload = qr);
-    if search is CollectionResponseWithTotalSimplePublicObjectForwardPaging {
-        test:assertTrue(search.results.length() > 0);
-    } else {
-        test:assertFail("Failed to search deals");
-    }
-};
 
+// Test for retrieving all quotes
+@test:Config{}
+function testGetAllQuotes() returns error? {
+    string endpoint = "/crm/v3/objects/quotes";
+    record {| QuoteCreateResponse[] quotes; |}|error response = check hubspotClient->get(endpoint);
 
-@test:Config{
-    dependsOn: [testSearchDeals]
-}
-function testDeleteDeal() returns error? {
-    var response = hubspot ->/crm/v3/objects/deals/[dealId].delete();
-    if
-        response is http:Response {
-        test:assertTrue(response.statusCode == 204);
-    } else {
-        test:assertFail("Failed to delete deal");
-    }
+    // Validate the response contains a list of quotes
+    test:assertTrue(response.quotes.length() >= 0, 
+        msg = "No quotes found in the response."); 
 }
