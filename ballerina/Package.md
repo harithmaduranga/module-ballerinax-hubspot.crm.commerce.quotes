@@ -27,15 +27,106 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Go to Test Account section from the left sidebar.
 
-   <img src=/home/harith/Documents/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_1.png style="width: 70%;">
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_1.png style="width: 70%;">
 
 2. Click Create developer test account.
 
-   <img src=/home/harith/Documents/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   <img src=/home/harith/Documents/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
+
+### Step 3: Create a HubSpot App under your account.
+
+1. In your developer account, navigate to the "Apps" section. Click on "Create App"
+
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_app.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+
+2. Provide the necessary details, including the app name and description.
+
+### Step 4: Configure the Authentication Flow.
+
+1. Move to the Auth Tab.
+
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_1.png alt="Hubspot app creation 2 testacc3" style="width: 70%;">
+
+2. In the Scopes section, add the following scopes for your app using the "Add new scope" button.
+
+   `crm.lists.read`
+
+   `crm.lists.write`
+
+   `cms.membership.access_groups.write`
+
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+
+4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
+
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_3.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+
+### Step 5: Get your Client ID and Client Secret
+
+- Navigate to the Auth section of your app. Make sure to save the provided Client ID and Client Secret.
+
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/clientId_clientSecret.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+
+### Step 6: Setup Authentication Flow
+
+Before proceeding with the Quickstart, ensure you have obtained the Access Token using the following steps:
+
+1. Create an authorization URL using the following format:
+
+   ```
+   https://app.hubspot.com/oauth/authorize?client_id=<YOUR_CLIENT_ID>&scope=<YOUR_SCOPES>&redirect_uri=<YOUR_REDIRECT_URI>
+   ```
+
+   Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI>` and `<YOUR_SCOPES>` with your specific value.
+
+    **_NOTE: If you are using a localhost redirect url, make sure to have a listner running at the relevant port before executing the next step. You can use [this gist](https://gist.github.com/lnash94/0af47bfcb7cc1e3d59e06364b3c86b59) and run it using `bal run`. Alternatively, you can use any other method to bind a listner to the port._**
+
+2. Paste it in the browser and select your developer test account to intall the app when prompted.
+
+   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+
+3. A code will be displayed in the browser. Copy the code.
+
+   ```
+   Received code: na1-129d-860c-xxxx-xxxx-xxxxxxxxxxxx
+   ```
+
+4. Run the following curl command. Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI`> and `<YOUR_CLIENT_SECRET>` with your specific value. Use the code you received in the above step 3 as the `<CODE>`.
+
+   - Linux/macOS
+
+     ```bash
+     curl --request POST \
+     --url https://api.hubapi.com/oauth/v1/token \
+     --header 'content-type: application/x-www-form-urlencoded' \
+     --data 'grant_type=authorization_code&code=<CODE>&redirect_uri=<YOUR_REDIRECT_URI>&client_id=<YOUR_CLIENT_ID>&client_secret=<YOUR_CLIENT_SECRET>'
+     ```
+
+   - Windows
+
+     ```bash
+     curl --request POST ^
+     --url https://api.hubapi.com/oauth/v1/token ^
+     --header 'content-type: application/x-www-form-urlencoded' ^
+     --data 'grant_type=authorization_code&code=<CODE>&redirect_uri=<YOUR_REDIRECT_URI>&client_id=<YOUR_CLIENT_ID>&client_secret=<YOUR_CLIENT_SECRET>'
+     ```
+
+   This command will return the access token necessary for API calls.
+
+   ```json
+   {
+     "token_type": "bearer",
+     "refresh_token": "<Refresh Token>",
+     "access_token": "<Access Token>",
+     "expires_in": 1800
+   }
+   ```
+
+5. Store the access token securely for use in your application.
 
 ### Step 3: Create a HubSpot App under your account.
 
