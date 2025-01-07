@@ -19,7 +19,7 @@
     "x-hubspot-introduction" : "Use the quotes API to create and manage sales quotes for sharing pricing information with potential buyers."
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com"
+    "url" : "https://api.hubapi.com/crm/v3/objects/quotes"
   } ],
   "tags" : [ {
     "name" : "Batch"
@@ -29,7 +29,7 @@
     "name" : "Search"
   } ],
   "paths" : {
-    "/crm/v3/objects/quotes/batch/read" : {
+    "/batch/read" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Read a batch of quotes by internal ID, or unique property values",
@@ -92,7 +92,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/quotes/{quoteId}" : {
+    "/{quoteId}" : {
       "get" : {
         "tags" : [ "Basic" ],
         "summary" : "Read",
@@ -288,7 +288,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/quotes/batch/archive" : {
+    "/batch/archive" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Archive a batch of quotes by ID",
@@ -324,7 +324,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/quotes/batch/create" : {
+    "/batch/create" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Create a batch of quotes",
@@ -376,7 +376,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/quotes/batch/update" : {
+    "/batch/update" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Update a batch of quotes by internal ID, or unique property values",
@@ -428,7 +428,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/quotes" : {
+    "/" : {
       "get" : {
         "tags" : [ "Basic" ],
         "summary" : "List",
@@ -574,7 +574,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/quotes/batch/upsert" : {
+    "/batch/upsert" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Create or update a batch of quotes by unique property values",
@@ -627,7 +627,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/quotes/search" : {
+    "/search" : {
       "post" : {
         "tags" : [ "Search" ],
         "operationId" : "post-/crm/v3/objects/quotes/search_doSearch",
@@ -751,15 +751,15 @@
         "properties" : {
           "completedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "requestedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "startedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "links" : {
             "type" : "object",
@@ -849,7 +849,7 @@
         "properties" : {
           "completedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "numErrors" : {
             "type" : "integer",
@@ -857,11 +857,11 @@
           },
           "requestedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "startedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "links" : {
             "type" : "object",
@@ -920,15 +920,15 @@
         "properties" : {
           "completedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "requestedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "startedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "links" : {
             "type" : "object",
@@ -982,7 +982,7 @@
           },
           "timestamp" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           }
         }
       },
@@ -1023,7 +1023,7 @@
         "properties" : {
           "createdAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "archived" : {
             "type" : "boolean",
@@ -1031,7 +1031,7 @@
           },
           "archivedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "propertiesWithHistory" : {
             "type" : "object",
@@ -1064,7 +1064,7 @@
           },
           "updatedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           }
         },
         "example" : {
@@ -1229,7 +1229,7 @@
         "properties" : {
           "completedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "numErrors" : {
             "type" : "integer",
@@ -1237,11 +1237,11 @@
           },
           "requestedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "startedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "links" : {
             "type" : "object",
@@ -1347,14 +1347,14 @@
           },
           "createdAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "archived" : {
             "type" : "boolean"
           },
           "archivedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "propertiesWithHistory" : {
             "type" : "object",
@@ -1377,7 +1377,7 @@
           },
           "updatedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           }
         },
         "example" : {
@@ -1461,14 +1461,14 @@
         "properties" : {
           "createdAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "archived" : {
             "type" : "boolean"
           },
           "archivedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           },
           "new" : {
             "type" : "boolean"
@@ -1493,7 +1493,7 @@
           },
           "updatedAt" : {
             "type" : "string",
-            "format" : "date-time"
+            "format" : "datetime"
           }
         }
       },
