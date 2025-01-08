@@ -42,7 +42,9 @@ function testCreateNewQuote() returns error? {
     test:assertTrue(response.id != "");
       
 }
-// Test function for creating a quote
+
+
+// Test function for creating a batch of quotes
 @test:Config{}
 function testCreateNewBatchOfQuotes() returns error? {
 
@@ -171,7 +173,7 @@ function testUpdateOneQuote() returns error? {
         }
     };
 
-    // Call the Quotes API to create a new quote
+    // Call the Quotes API to update the quote
     SimplePublicObject|error response = check hubspotClient->/[testQuoteId].patch(payload);
 
     // Validate the response
