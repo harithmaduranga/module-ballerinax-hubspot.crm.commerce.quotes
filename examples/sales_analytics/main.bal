@@ -1,22 +1,11 @@
+import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
-import ballerina/http;
 import ballerinax/hubspot.crm.commerce.quotes as quotes;
 
 configurable string & readonly clientId = ?;
 configurable string & readonly clientSecret = ?;
 configurable string & readonly refreshToken = ?;
-
-quotes:OAuth2RefreshTokenGrantConfig auth = {
-    clientId,
-    clientSecret,
-    refreshToken,
-    credentialBearer: oauth2:POST_BODY_BEARER
-};
-
-final string serviceUrl = "https://api.hubapi.com/crm/v3/objects/quotes";
-
-final quotes:Client storeClient = check new Client(config = {auth}, serviceUrl = serviceUrl);
 
 public function main() returns error? {
     
@@ -29,7 +18,7 @@ public function main() returns error? {
 
     final string serviceUrl = "https://api.hubapi.com/crm/v3/objects/quotes";
 
-    final quotes:Client storeClient = check new Client(config = {auth}, serviceUrl = serviceUrl);
+    final quotes:Client storeClient = check new quotes:Client(config = {auth}, serviceUrl = serviceUrl);
 
     string quoteId = "0";
 
@@ -39,56 +28,35 @@ public function main() returns error? {
         properties: {
             "hs_title": "Premium Subscription Quote",
             "hs_expiration_date": "2025-02-28",
-            "hs_currency": "USD",
-            "hs_total_amount": "1500.00",
-            "hs_quote_terms": "Payment must be completed within 30 days of acceptance.",
-            "hs_payment_schedule": "50% upfront, 50% upon completion",
-            "hs_quote_status": "draft",
-            "hs_delivery_start_date": "2025-03-01",
-            "hs_delivery_end_date": "2025-06-30",
-            "hs_deal_id": "123456",  
-            "hs_sender_name": "John Doe",
-            "hs_sender_email": "john.doe@company.com"
+            "hs_currency": "USD"
         }
     };    
     var createdNewQuote = check storeClient->/.post(payload);
-    if(createdNewQuote is quotes:SimplePublicObject ){
-        io:println(createdNewQuote);
-    }else{
-        io:println("New quote creation failed."); 
-    }
+    quoteId = createdNewQuote.id;
+    io:println(createdNewQuote);
     
 
     // Get all existing sales quotes
-    quotes:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error allExistingQuotes = check storeClient->/.get();
+    quotes:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allExistingQuotes = check storeClient->/.get();
     io:println(allExistingQuotes); 
 
     // Get one sales quote by ID
-    quotes:SimplePublicObjectWithAssociations|error quote = check storeClient->/[quoteId].get();
+    quotes:SimplePublicObjectWithAssociations quote = check storeClient->/[quoteId].get();
     io:println(quote);
-
-    // Archive one sales quote by ID
-    http:Response|error response = check storeClient->/[quoteId].delete(); 
-    io:println(response);
 
     // Update one sales quote by ID
     quotes:SimplePublicObjectInput modifyPayload = {
         properties: {
             "hs_title": "Premium Subscription Quote",
-            "hs_expiration_date": "2025-02-28",
-            "hs_currency": "USD",
-            "hs_total_amount": "2000.00",
-            "hs_quote_terms": "Payment must be completed within 30 days of acceptance.",
-            "hs_payment_schedule": "50% upfront, 50% upon completion",
-            "hs_quote_status": "draft",
-            "hs_delivery_start_date": "2025-03-01",
-            "hs_delivery_end_date": "2025-06-30",
-            "hs_deal_id": "123456",  
-            "hs_sender_name": "John Doe",
-            "hs_sender_email": "john.doe@company.com"
+            "hs_expiration_date": "2025-03-31",
+            "hs_currency": "USD"
         }
     };
-    quotes:SimplePublicObject|error modifiedQuote = check storeClient->/[quoteId].patch(payload);
+    quotes:SimplePublicObject modifiedQuote = check storeClient->/[quoteId].patch(modifyPayload);
     io:println(modifiedQuote); 
+
+    // Archive one sales quote by ID
+    http:Response response = check storeClient->/[quoteId].delete(); 
+    io:println(response);
 
 }

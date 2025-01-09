@@ -51,7 +51,61 @@ http:Service mockService = service object {
             updatedAt: "2025-01-15"
         }; 
     }
-    
+
+    resource function post crm/v3/objects/quotes/batch/upsert(@http:Payload BatchInputSimplePublicObjectBatchInputUpsert payload, map<string|string[]> headers = {}) returns BatchResponseSimplePublicUpsertObject|error {
+        SimplePublicUpsertObject ob1 = {
+                    id: "1",
+                    properties: {
+                        "hs_title": "Test Quote 1", 
+                        "hs_expiration_date": "2025-01-31"
+                    },
+                    'new: true,
+                    createdAt: "2025-01-08", 
+                    updatedAt: "2025-01-15"
+                };
+        SimplePublicUpsertObject ob2 = {
+                    id: "2",
+                    properties: {
+                        "hs_title": "Test Quote 2", 
+                        "hs_expiration_date": "2025-01-31"
+                    },
+                    'new: true,
+                    createdAt: "2025-01-08", 
+                    updatedAt: "2025-01-15"
+                };
+        return {
+            completedAt: "2025-01-10",
+            startedAt: "2025-01-08",
+            requestedAt: "2025-01-08",
+            results:[ob1,ob2],
+            status: "COMPLETE"
+        };
+    }
+
+    resource isolated function post crm/v3/objects/quotes/search(@http:Payload PublicObjectSearchRequest payload, map<string|string[]> headers = {}) returns CollectionResponseWithTotalSimplePublicObjectForwardPaging|error {
+        SimplePublicObject ob1 = {
+                    id: "1",
+                    properties: {
+                        "hs_title": "Test Quote 1", 
+                        "hs_expiration_date": "2025-01-31"
+                    },
+                    createdAt: "2025-01-08", 
+                    updatedAt: "2025-01-15"
+                };
+        SimplePublicObject ob2 = {
+                    id: "2",
+                    properties: {
+                        "hs_title": "Test Quote 2", 
+                        "hs_expiration_date": "2025-01-31"
+                    },
+                    createdAt: "2025-01-08", 
+                    updatedAt: "2025-01-15"
+                };
+        return {
+            total: 1500,
+            results: [ob1, ob2] 
+        };
+    }
 };
 
 function init() returns error?{

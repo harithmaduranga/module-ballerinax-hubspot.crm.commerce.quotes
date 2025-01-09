@@ -1,15 +1,11 @@
 ## Overview
 
-[//]: # (TODO: Add overview mentioning the purpose of the module, supported REST API versions, and other high-level details.)
-
 [HubSpot](https://www.hubspot.com/) is an customer platform with all the software, integrations, and resources users need to connect thier marketing, sales, and customer service.
 
 The `ballerinax/hubspot.crm.commerce.quotes` package offers APIs to connect and interact with [HubSpot API for CRM Quotes](https://developers.hubspot.com/docs/reference/api/crm/commerce/quotes) endpoints, specifically based on [HubSpot CRM Quotes API v3 OpenAPI spec](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Quotes/Rollouts/424/v3/quotes.json).
 
 
 ## Setup guide
-
-[//]: # (TODO: Add detailed steps to obtain credentials and configure the module.)
 
 To use the HubSpot CRM Lists connector, you must have access to the HubSpot API through a HubSpot developer account and a HubSpot App under it. Therefore you need to register for a developer account at HubSpot if you don't have one already.
 
@@ -27,21 +23,21 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Go to Test Account section from the left sidebar.
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_1.png style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_1.png style="width: 70%;">
 
 2. Click Create developer test account.
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
 
 ### Step 3: Create a HubSpot App under your account.
 
 1. In your developer account, navigate to the "Apps" section. Click on "Create App"
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_app.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_app.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 2. Provide the necessary details, including the app name and description.
 
@@ -49,7 +45,7 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Move to the Auth Tab.
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_1.png alt="Hubspot app creation 2 testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_1.png alt="Hubspot app creation 2 testacc3" style="width: 70%;">
 
 2. In the Scopes section, add the following scopes for your app using the "Add new scope" button.
 
@@ -59,17 +55,17 @@ Within app developer accounts, you can create developer test accounts to test ap
 
    `cms.membership.access_groups.write`
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_3.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_3.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 ### Step 5: Get your Client ID and Client Secret
 
 - Navigate to the Auth section of your app. Make sure to save the provided Client ID and Client Secret.
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/clientId_clientSecret.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/clientId_clientSecret.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 ### Step 6: Setup Authentication Flow
 
@@ -87,7 +83,7 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src=/home/harith/Documents/Harith_02/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 3. A code will be displayed in the browser. Copy the code.
 
@@ -131,8 +127,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 
 ## Quickstart
-
-[//]: # (TODO: Add a quickstart guide to demonstrate a basic functionality of the module, including sample code snippets.)
 
 To use the `HubSpot CRM Quotes` connector in your Ballerina application, update the `.bal` file as follows:
 
@@ -212,4 +206,3 @@ public function main() returns error? {
 
 The `HubSpot CRM Commerce Quotes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.quotes/tree/main/examples/), covering the following use cases:
 
-[//]: # (TODO: Add examples)

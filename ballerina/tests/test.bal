@@ -1,7 +1,7 @@
-import ballerina/test;
-import ballerina/oauth2;
 import ballerina/http;
 import ballerina/io;
+import ballerina/oauth2;
+import ballerina/test;
 
 configurable string clientId = ?;
 configurable string clientSecret = ?;
