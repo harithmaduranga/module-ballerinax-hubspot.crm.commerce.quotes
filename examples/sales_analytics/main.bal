@@ -1,3 +1,19 @@
+// Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com).
+
+// WSO2 LLC. licenses this file to you under the Apache License,
+// Version 2.0 (the "License"); you may not use this file except
+// in compliance with the License.
+// You may obtain a copy of the License at
+
+// http://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
@@ -16,9 +32,7 @@ public function main() returns error? {
         credentialBearer: oauth2:POST_BODY_BEARER
     };
 
-    final string serviceUrl = "https://api.hubapi.com/crm/v3/objects/quotes";
-
-    final quotes:Client storeClient = check new quotes:Client(config = {auth}, serviceUrl = serviceUrl);
+    final quotes:Client storeClient = check new (config = {auth});
 
     string quoteId = "0";
 
@@ -127,5 +141,4 @@ public function main() returns error? {
     http:Response batch_archive_response = check storeClient->/batch/archive.post(batch_archive_payload); 
 
     io:println(batch_archive_response); 
-
 }
