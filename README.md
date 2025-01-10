@@ -31,21 +31,21 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Go to Test Account section from the left sidebar. 
 
-   ![Hubspot developer testacc2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/resources/create_developer_account_1.png)
+   ![Hubspot developer testacc1](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_developer_account_1.png)
 
 2. Click Create developer test account.
 
-   <img src=docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
+   ![Hubspot developer testacc2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_developer_account_2.png)
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   <img src=docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
+   ![Hubspot developer testacc3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_developer_account_3.png)
 
 ### Step 3: Create a HubSpot App under your account.
 
 1. In your developer account, navigate to the "Apps" section. Click on "Create App"
 
-   <img src=docs/resources/create_app.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Create account](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_app.png)
 
 2. Provide the necessary details, including the app name and description.
 
@@ -53,7 +53,7 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Move to the Auth Tab.
 
-   <img src=docs/resources/authentication_1.png alt="Hubspot app creation 2 testacc3" style="width: 70%;">
+   ![Authentication 1](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/authentication_1.png)
 
 2. In the Scopes section, add the following scopes for your app using the "Add new scope" button.
 
@@ -61,17 +61,17 @@ Within app developer accounts, you can create developer test accounts to test ap
    `crm.lists.write`
    `cms.membership.access_groups.write`
 
-   <img src=docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Authentication 2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/authentication_2.png)
 
 4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
-   <img src=docs/resources/authentication_3.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Authentication 3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/authentication_3.png)
 
 ### Step 5: Get your Client ID and Client Secret
 
 - Navigate to the Auth section of your app. Make sure to save the provided Client ID and Client Secret.
 
-   <img src=docs/resources/clientId_clientSecret.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Client Id_& Client Secret](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/clientId_clientSecret.png)
 
 ### Step 6: Setup Authentication Flow
 
@@ -87,7 +87,7 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src=docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Setup auth flow](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/setup_auth_flow.png)
 
 3. A code will be displayed in the browser. Copy the code.
 

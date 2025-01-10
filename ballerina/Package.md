@@ -4,7 +4,6 @@
 
 The `ballerinax/hubspot.crm.commerce.quotes` package offers APIs to connect and interact with [HubSpot API for CRM Quotes](https://developers.hubspot.com/docs/reference/api/crm/commerce/quotes) endpoints, specifically based on [HubSpot CRM Quotes REST API](https://developers.hubspot.com/docs/reference/api).
 
-
 ## Setup guide
 
 To use the HubSpot CRM Quotes connector, you must have access to the HubSpot API through a HubSpot developer account and a HubSpot App under it. Therefore you need to register for a developer account at HubSpot if you don't have one already.
@@ -21,23 +20,23 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 >**Note:** These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts.
 
-1. Go to Test Account section from the left sidebar.
+1. Go to Test Account section from the left sidebar. 
 
-   <img src=../docs/resources/create_developer_account_1.png style="width: 70%;">
+   ![Hubspot developer testacc1](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_developer_account_1.png)
 
 2. Click Create developer test account.
 
-   <img src=../docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
+   ![Hubspot developer testacc2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_developer_account_2.png)
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   <img src=../docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
+   ![Hubspot developer testacc3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_developer_account_3.png)
 
 ### Step 3: Create a HubSpot App under your account.
 
 1. In your developer account, navigate to the "Apps" section. Click on "Create App"
 
-   <img src=../docs/resources/create_app.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Create account](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/create_app.png)
 
 2. Provide the necessary details, including the app name and description.
 
@@ -45,27 +44,25 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Move to the Auth Tab.
 
-   <img src=../docs/resources/authentication_1.png alt="Hubspot app creation 2 testacc3" style="width: 70%;">
+   ![Authentication 1](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/authentication_1.png)
 
 2. In the Scopes section, add the following scopes for your app using the "Add new scope" button.
 
    `crm.lists.read`
-
    `crm.lists.write`
-
    `cms.membership.access_groups.write`
 
-   <img src=../docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Authentication 2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/authentication_2.png)
 
 4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
-   <img src=../docs/resources/authentication_3.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Authentication 3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/authentication_3.png)
 
 ### Step 5: Get your Client ID and Client Secret
 
 - Navigate to the Auth section of your app. Make sure to save the provided Client ID and Client Secret.
 
-   <img src=../docs/resources/clientId_clientSecret.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Client Id_& Client Secret](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/clientId_clientSecret.png)
 
 ### Step 6: Setup Authentication Flow
 
@@ -77,19 +74,13 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
    https://app.hubspot.com/oauth/authorize?client_id=<YOUR_CLIENT_ID>&scope=<YOUR_SCOPES>&redirect_uri=<YOUR_REDIRECT_URI>
    ```
 
-   Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI>` and `<YOUR_SCOPES>` with your specific value.
-
     **_NOTE: If you are using a localhost redirect url, make sure to have a listner running at the relevant port before executing the next step. You can use [this gist](https://gist.github.com/lnash94/0af47bfcb7cc1e3d59e06364b3c86b59) and run it using `bal run`. Alternatively, you can use any other method to bind a listner to the port._**
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src=../docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   ![Setup auth flow](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/setup/resources/setup_auth_flow.png)
 
 3. A code will be displayed in the browser. Copy the code.
-
-   ```
-   Received code: na1-129d-860c-xxxx-xxxx-xxxxxxxxxxxx
-   ```
 
 4. Run the following curl command. Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI`> and `<YOUR_CLIENT_SECRET>` with your specific value. Use the code you received in the above step 3 as the `<CODE>`.
 
@@ -124,8 +115,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 5. Store the access token securely for use in your application.
 
-
-
 ## Quickstart
 
 To use the `HubSpot CRM Quotes` connector in your Ballerina application, update the `.bal` file as follows:
@@ -135,8 +124,8 @@ To use the `HubSpot CRM Quotes` connector in your Ballerina application, update 
 Import the `hubspot.crm.commerce.quotes` module and `oauth2` module.
 
 ```ballerina
-import ballerinax/hubspot.crm.commerce.quotes as crmquotes;
 import ballerina/oauth2;
+import ballerinax/hubspot.crm.commerce.quotes as crmquotes;
 ```
 
 ### Step 2: Instantiate a new connector
@@ -163,9 +152,7 @@ import ballerina/oauth2;
         credentialBearer: oauth2:POST_BODY_BEARER
     };
 
-    final string serviceUrl = "https://api.hubapi.com";
-
-    final crmlists:Client crmListClient = check new Client(config = {auth}, serviceUrl = serviceUrl);
+    final crmlists:Client crmListClient = check new (config = {auth});
 
     ```
 
@@ -176,12 +163,16 @@ Now, utilize the available connector operations. A sample usecase is shown below
 #### Create a CRM List
     
 ```ballerina
+
+OAuth2RefreshTokenGrantConfig auth = {
+    clientId,
+    clientSecret,
+    refreshToken,
+    credentialBearer: oauth2:POST_BODY_BEARER
+};
+
 public function main() returns error? {
-    http:Client hubspotClient = check new ("https://api.hubapi.com", {
-        headers: {
-            "Authorization": "Bearer <your-access-token>"
-        }
-    });
+    final Client hubspotClient = check new (config = {auth});
 
     // Define the payload for creating a quote
     json payload = {
@@ -195,7 +186,7 @@ public function main() returns error? {
     };
 
     // Send the request to create a quote
-    http:Response response = check hubspotClient->post("/crm/v3/objects/quotes", payload);
+    http:Response response = check hubspotClient->/crm/v3/objects/quotes.post(payload); 
 
     // Print the response
     io:println("Response: ", response.getJsonPayload());
