@@ -2,12 +2,12 @@
 
 [HubSpot](https://www.hubspot.com/) is an customer platform with all the software, integrations, and resources users need to connect thier marketing, sales, and customer service.
 
-The `ballerinax/hubspot.crm.commerce.quotes` package offers APIs to connect and interact with [HubSpot API for CRM Quotes](https://developers.hubspot.com/docs/reference/api/crm/commerce/quotes) endpoints, specifically based on [HubSpot CRM Quotes API v3 OpenAPI spec](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Quotes/Rollouts/424/v3/quotes.json).
+The `ballerinax/hubspot.crm.commerce.quotes` package offers APIs to connect and interact with [HubSpot API for CRM Quotes](https://developers.hubspot.com/docs/reference/api/crm/commerce/quotes) endpoints, specifically based on [HubSpot CRM Quotes REST API](https://developers.hubspot.com/docs/reference/api).
 
 
 ## Setup guide
 
-To use the HubSpot CRM Lists connector, you must have access to the HubSpot API through a HubSpot developer account and a HubSpot App under it. Therefore you need to register for a developer account at HubSpot if you don't have one already.
+To use the HubSpot CRM Quotes connector, you must have access to the HubSpot API through a HubSpot developer account and a HubSpot App under it. Therefore you need to register for a developer account at HubSpot if you don't have one already.
 
 ### Step 1: Create/Login to a HubSpot Developer Account
 
@@ -19,25 +19,25 @@ If you don't have a HubSpot Developer Account you can sign up to a free account 
 
 Within app developer accounts, you can create developer test accounts to test apps and integrations without affecting any real HubSpot data.
 
-**_These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts._**
+>**Note:** These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts.
 
 1. Go to Test Account section from the left sidebar.
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_1.png style="width: 70%;">
+   <img src=../docs/resources/create_developer_account_1.png style="width: 70%;">
 
 2. Click Create developer test account.
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
+   <img src=../docs/resources/create_developer_account_2.png alt="Hubspot developer testacc2" style="width: 70%;">
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
+   <img src=../docs/resources/create_developer_account_3.png alt="Hubspot developer testacc3" style="width: 70%;">
 
 ### Step 3: Create a HubSpot App under your account.
 
 1. In your developer account, navigate to the "Apps" section. Click on "Create App"
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/create_app.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=../docs/resources/create_app.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 2. Provide the necessary details, including the app name and description.
 
@@ -45,7 +45,7 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Move to the Auth Tab.
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_1.png alt="Hubspot app creation 2 testacc3" style="width: 70%;">
+   <img src=../docs/resources/authentication_1.png alt="Hubspot app creation 2 testacc3" style="width: 70%;">
 
 2. In the Scopes section, add the following scopes for your app using the "Add new scope" button.
 
@@ -55,17 +55,17 @@ Within app developer accounts, you can create developer test accounts to test ap
 
    `cms.membership.access_groups.write`
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=../docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/authentication_3.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=../docs/resources/authentication_3.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 ### Step 5: Get your Client ID and Client Secret
 
 - Navigate to the Auth section of your app. Make sure to save the provided Client ID and Client Secret.
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/clientId_clientSecret.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=../docs/resources/clientId_clientSecret.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 ### Step 6: Setup Authentication Flow
 
@@ -83,7 +83,7 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src=/home/harith/Documents/Main/module-ballerinax-hubspot.crm.commerce.quotes/docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
+   <img src=../docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 3. A code will be displayed in the browser. Copy the code.
 
