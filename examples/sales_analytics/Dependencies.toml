@@ -305,7 +305,7 @@ modules = [
 ]
 
 [[package]]
-org = "harith"
+org = "wso2"
 name = "sales_analytics"
 version = "0.1.0"
 dependencies = [
@@ -316,6 +316,6 @@ dependencies = [
 	{org = "ballerinax", name = "hubspot.crm.commerce.quotes"}
 ]
 modules = [
-	{org = "harith", packageName = "sales_analytics", moduleName = "sales_analytics"}
+	{org = "wso2", packageName = "sales_analytics", moduleName = "sales_analytics"}
 ]
 
