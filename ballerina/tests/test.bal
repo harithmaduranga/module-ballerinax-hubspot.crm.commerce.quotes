@@ -1,5 +1,4 @@
 import ballerina/http;
-import ballerina/io;
 import ballerina/oauth2;
 import ballerina/test;
 
@@ -39,7 +38,8 @@ function testCreateNewQuote() returns error? {
     testQuoteId = response.id;
 
     // Validate the response
-    test:assertTrue(response.id != "");
+    test:assertEquals(response.properties["hs_title"], "Test Quote", 
+        "New quote not created successfully.");
       
 }
 
@@ -72,7 +72,8 @@ function testCreateNewBatchOfQuotes() returns error? {
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspotClient->/batch/create.post(payload);
 
     // Validate the response
-    test:assertTrue(response.results.length() > 0); 
+    test:assertEquals(response.results.length(), payload.inputs.length(), 
+        "New batch of quotes not created successfully."); 
       
 }
 
@@ -81,28 +82,18 @@ function testCreateNewBatchOfQuotes() returns error? {
 @test:Config{}
 function testGetAllQuotes() returns error? {
 
-    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error response = check hubspotClient->/.get();
+    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response = check hubspotClient->/.get();
 
-    // Validate the response contains a list of quotes
-    if(response is CollectionResponseSimplePublicObjectWithAssociationsForwardPaging){
-        test:assertTrue(response.results.length() > 0, 
+    test:assertTrue(response.results.length() > 0, 
             msg = "No quotes found in the response."); 
-    }else {
-        io:println(response);
-    }
 }
 
 // Test function for retrieving a quote
 @test:Config{}
 function testGetOneQuote() returns error? {
-    SimplePublicObjectWithAssociations|error response = check hubspotClient->/[testQuoteId].get();
+    SimplePublicObjectWithAssociations response = check hubspotClient->/[testQuoteId].get();
 
-    if (response is SimplePublicObjectWithAssociations) {
-        // Validate essential fields
-        test:assertTrue(response.id == testQuoteId, msg = "Quote ID is missing.");
-    } else if (response is error) {
-        test:assertFail("Failed to retrieve quote: " + response.message());
-    }
+    test:assertEquals(response.id, testQuoteId, "Quote ID is missing.");
 }
 
 // Test function for retrieving a batch of quotes 
@@ -122,22 +113,17 @@ function testGetBatchOfQuotes() returns error? {
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspotClient->/batch/read.post(payload);
 
     // Validate essential fields
-    test:assertTrue(response.results.length() == payload.inputs.length(), msg = string`Only ${response.results.length()} IDs found.`);
-}
+    test:assertEquals(response.results.length(), payload.inputs.length(), msg = string`Only ${response.results.length()} IDs found.`);
+} 
 
 
 // Archive a quote by ID
 @test:Config{}
 function testArchiveOneQuote() returns error?{
 
-    http:Response|error response = check hubspotClient->/["0"].delete(); 
+    http:Response response = check hubspotClient->/["0"].delete(); 
 
-    // Validate the response
-    if(response is http:Response){
-        test:assertTrue(response.statusCode == 204);
-    }else{
-        test:assertFail("Deletion failed."); 
-    }
+    test:assertTrue(response.statusCode == 204);
 }
 
 // Archive batch of quotes by ID
@@ -152,14 +138,9 @@ function testArchiveBatchOfQuoteById() returns error?{
         ]
     };
 
-    http:Response|error response = check hubspotClient->/batch/archive.post(payload); 
+    http:Response response = check hubspotClient->/batch/archive.post(payload); 
 
-    // Validate the response
-    if(response is http:Response){
-        test:assertTrue(response.statusCode == 204);
-    }else{
-        test:assertFail("Deletion failed."); 
-    }
+    test:assertTrue(response.statusCode == 204);
 }
 
 
@@ -174,15 +155,10 @@ function testUpdateOneQuote() returns error? {
     };
 
     // Call the Quotes API to update the quote
-    SimplePublicObject|error response = check hubspotClient->/[testQuoteId].patch(payload);
+    SimplePublicObject response = check hubspotClient->/[testQuoteId].patch(payload);
 
-    // Validate the response
-    if(response is SimplePublicObject){
-        test:assertTrue(response.id != "", 
-        msg = "Quote in response does not match the expected quote."); 
-    }else {
-        io:println(response); 
-    }
+    test:assertEquals(response.properties["hs_title"], "Test Quote Modified", 
+        "Quote not updated successfully."); 
 }
 
 // Test function for updating a batch of quotes
@@ -202,42 +178,9 @@ function testUpdateBatchOfQuotes() returns error? {
     };
 
     // Call the Quotes API to create a new quote
-    BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error response = hubspotClient->/batch/update.post(payload);
+    BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspotClient->/batch/update.post(payload);
 
-    // Validate the response
-    if(response is BatchResponseSimplePublicObject){
-        test:assertTrue(response.results.length() == payload.inputs.length(), 
-        msg = "Quote in response does not match the expected quote."); 
-    }else{
-        test:assertFail("Errors in updating.");
-    }
+    test:assertEquals(response.results.length(), payload.inputs.length(), 
+        "Quote in response does not match the expected quote."); 
 }
-
-// // Test function for creating or updating a batch of quotes
-// @test:Config{}
-// function testCreateOrUpdateBatchOfQuotes() returns error? {
-
-//     SimplePublicObjectBatchInputUpsert ob4 = {
-//         id: testQuoteId,
-//         properties: {
-//             "hs_title": "Test Quote 4", 
-//             "hs_expiration_date": "2025-05-31"
-//         }
-//     };
-
-//     BatchInputSimplePublicObjectBatchInputUpsert payload = {
-//         inputs: [ob4] 
-//     };
-
-//     // Call the Quotes API to create a new quote
-//     BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error response = hubspotClient->/batch/upsert.post(payload);
-
-//     // Validate the response
-//     if(response is BatchResponseSimplePublicUpsertObject){
-//         test:assertTrue(response.results.length() == payload.inputs.length(), 
-//         msg = "Quote in response does not match the expected quote."); 
-//     }else{
-//         test:assertFail("Errors in updating.");
-//     }
-// }
 
