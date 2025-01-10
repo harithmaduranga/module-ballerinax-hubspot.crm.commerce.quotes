@@ -29,9 +29,7 @@ OAuth2RefreshTokenGrantConfig auth = {
     credentialBearer: oauth2:POST_BODY_BEARER
 };
 
-final string serviceUrl = "https://api.hubapi.com/crm/v3/objects/quotes";
-
-final Client hubspotClient = check new Client(config = {auth}, serviceUrl = serviceUrl);
+final Client hubspotClient = check new (config = {auth});
 
 string testQuoteId = ""; 
 

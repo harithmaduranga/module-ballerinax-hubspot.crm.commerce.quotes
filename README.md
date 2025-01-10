@@ -31,7 +31,7 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Go to Test Account section from the left sidebar.
 
-   <img src=docs/resources/create_developer_account_1.png style="width: 70%;">
+   ![Hubspot developer testacc2](https://raw.githubusercontent.com/harithmaduranga/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/resources/create_developer_account_1.png)
 
 2. Click Create developer test account.
 
@@ -58,9 +58,7 @@ Within app developer accounts, you can create developer test accounts to test ap
 2. In the Scopes section, add the following scopes for your app using the "Add new scope" button.
 
    `crm.lists.read`
-
    `crm.lists.write`
-
    `cms.membership.access_groups.write`
 
    <img src=docs/resources/authentication_2.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
@@ -84,8 +82,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
    ```
    https://app.hubspot.com/oauth/authorize?client_id=<YOUR_CLIENT_ID>&scope=<YOUR_SCOPES>&redirect_uri=<YOUR_REDIRECT_URI>
    ```
-
-   Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI>` and `<YOUR_SCOPES>` with your specific value.
 
     **_NOTE: If you are using a localhost redirect url, make sure to have a listner running at the relevant port before executing the next step. You can use [this gist](https://gist.github.com/lnash94/0af47bfcb7cc1e3d59e06364b3c86b59) and run it using `bal run`. Alternatively, you can use any other method to bind a listner to the port._**
 
@@ -141,8 +137,8 @@ To use the `HubSpot CRM Quotes` connector in your Ballerina application, update 
 Import the `hubspot.crm.commerce.quotes` module and `oauth2` module.
 
 ```ballerina
-import ballerinax/hubspot.crm.commerce.quotes as crmquotes;
 import ballerina/oauth2;
+import ballerinax/hubspot.crm.commerce.quotes as crmquotes;
 ```
 
 ### Step 2: Instantiate a new connector
@@ -169,9 +165,7 @@ import ballerina/oauth2;
         credentialBearer: oauth2:POST_BODY_BEARER
     };
 
-    final string serviceUrl = "https://api.hubapi.com";
-
-    final crmlists:Client crmListClient = check new Client(config = {auth}, serviceUrl = serviceUrl);
+    final crmlists:Client crmListClient = check new (config = {auth});
 
     ```
 
@@ -182,12 +176,16 @@ Now, utilize the available connector operations. A sample usecase is shown below
 #### Create a CRM List
     
 ```ballerina
+
+OAuth2RefreshTokenGrantConfig auth = {
+    clientId,
+    clientSecret,
+    refreshToken,
+    credentialBearer: oauth2:POST_BODY_BEARER
+};
+
 public function main() returns error? {
-    http:Client hubspotClient = check new ("https://api.hubapi.com", {
-        headers: {
-            "Authorization": "Bearer <your-access-token>"
-        }
-    });
+    final Client hubspotClient = check new (config = {auth});
 
     // Define the payload for creating a quote
     json payload = {
@@ -201,7 +199,7 @@ public function main() returns error? {
     };
 
     // Send the request to create a quote
-    http:Response response = check hubspotClient->post("/crm/v3/objects/quotes", payload);
+    http:Response response = check hubspotClient->/crm/v3/objects/quotes.post(payload); 
 
     // Print the response
     io:println("Response: ", response.getJsonPayload());

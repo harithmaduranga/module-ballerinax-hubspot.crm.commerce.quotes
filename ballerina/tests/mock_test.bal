@@ -18,14 +18,12 @@ import ballerina/http;
 import ballerina/oauth2;
 import ballerina/test;
 
-final string mockServiceUrl = "http://localhost:9090/crm/v3/objects/quotes";
-
-final Client mockClient = check new Client(config = {auth: {
+final Client quotesClient = check new Client(config = {auth: {
     clientId,
     clientSecret,
     refreshToken,
     credentialBearer: oauth2:POST_BODY_BEARER 
-}}, serviceUrl = mockServiceUrl);
+}});
 
 // Test function for creating a quote
 @test:Config{}
@@ -38,7 +36,7 @@ function testCreateAQuote() returns error? {
         }
     };
 
-    SimplePublicObject response = check mockClient->/.post(payload);
+    SimplePublicObject response = check quotesClient->/.post(payload);
 
     test:assertEquals(response.properties, payload.properties, "New quote creation failed.");     
 }
@@ -46,7 +44,7 @@ function testCreateAQuote() returns error? {
 // Test function to get a quote bu ID
 @test:Config{}
 function testGetAQuoteById() returns error? {
-    SimplePublicObjectWithAssociations response = check mockClient->/["0"].get();
+    SimplePublicObjectWithAssociations response = check quotesClient->/["0"].get();
 
     test:assertEquals(response, {
             id: "0",
@@ -63,7 +61,7 @@ function testGetAQuoteById() returns error? {
 @test:Config{}
 function testArchiveAQuoteById() returns error?{
 
-    http:Response response = check mockClient->/["0"].delete(); 
+    http:Response response = check quotesClient->/["0"].delete(); 
 
     test:assertTrue(response.statusCode == 204);
 }
@@ -79,7 +77,7 @@ function testUpdateAQuoteById() returns error? {
     };
 
     // Call the Quotes API to update the quote
-    SimplePublicObject response = check mockClient->/["1"].patch(payload);
+    SimplePublicObject response = check quotesClient->/["1"].patch(payload);
 
     test:assertEquals(response, {
             id: "1",
@@ -114,7 +112,7 @@ function testUpsertAQuote() returns error? {
         ]
     };
 
-    BatchResponseSimplePublicUpsertObject response = check mockClient->/batch/upsert.post(payload = payload);
+    BatchResponseSimplePublicUpsertObject response = check quotesClient->/batch/upsert.post(payload = payload);
 
     test:assertEquals(response, {
             completedAt: "2025-01-10",
@@ -168,7 +166,7 @@ function testSearchAQuote() returns error? {
     properties: ["hs_title", "hs_expiration_date"]
 };
 
-    CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check mockClient->/search.post(payload = payload);
+    CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check quotesClient->/search.post(payload = payload);
 
     SimplePublicObject ob1 = {
                     id: "1",
