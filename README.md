@@ -29,9 +29,9 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 >**Note:** These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts.
 
-1. Go to Test Account section from the left sidebar.
+1. Go to Test Account section from the left sidebar. 
 
-   ![Hubspot developer testacc2](https://raw.githubusercontent.com/harithmaduranga/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/resources/create_developer_account_1.png)
+   ![Hubspot developer testacc2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/blob/main/docs/resources/create_developer_account_1.png)
 
 2. Click Create developer test account.
 
@@ -90,10 +90,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
    <img src=docs/resources/setup_auth_flow.png alt="Hubspot app creation 1 testacc3" style="width: 70%;">
 
 3. A code will be displayed in the browser. Copy the code.
-
-   ```
-   Received code: na1-129d-860c-xxxx-xxxx-xxxxxxxxxxxx
-   ```
 
 4. Run the following curl command. Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI`> and `<YOUR_CLIENT_SECRET>` with your specific value. Use the code you received in the above step 3 as the `<CODE>`.
 
