@@ -20,7 +20,7 @@ import ballerina/log;
 service on new http:Listener(9090) {
     
     // Archive
-    resource function delete crm/v3/objects/quotes/[string quoteId]() returns http:Response|error {
+    resource function delete crm/v3/objects/quotes/[string quoteId]() returns http:Response {
         http:Response response = new();
         response.statusCode = http:STATUS_NO_CONTENT;
         response.setPayload("Successfully deleted");
@@ -121,9 +121,3 @@ service on new http:Listener(9090) {
         };
     }
 };
-
-function init() returns error?{
-    log:printInfo("Initializing mock service");
-    check httpListener.attach(mockService, "/");
-    check httpListener.'start();
-}
