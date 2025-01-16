@@ -70,10 +70,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 1. Create an authorization URL using the following format:
 
-   ```
-   https://app.hubspot.com/oauth/authorize?client_id=<YOUR_CLIENT_ID>&scope=<YOUR_SCOPES>&redirect_uri=<YOUR_REDIRECT_URI>
-   ```
-
     **_NOTE: If you are using a localhost redirect url, make sure to have a listner running at the relevant port before executing the next step. You can use [this gist](https://gist.github.com/lnash94/0af47bfcb7cc1e3d59e06364b3c86b59) and run it using `bal run`. Alternatively, you can use any other method to bind a listner to the port._**
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.

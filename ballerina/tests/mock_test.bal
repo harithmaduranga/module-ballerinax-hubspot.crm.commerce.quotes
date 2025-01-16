@@ -18,7 +18,7 @@ import ballerina/http;
 import ballerina/oauth2;
 import ballerina/test;
 
-final Client quotesClient = check new Client(config = {auth: {
+final Client quotesClient = check new(config = {auth: {
     clientId,
     clientSecret,
     refreshToken,

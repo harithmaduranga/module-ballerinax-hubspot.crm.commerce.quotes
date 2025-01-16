@@ -17,9 +17,7 @@
 import ballerina/http;
 import ballerina/log;
 
-listener http:Listener httpListener = new(9090);
-
-http:Service mockService = service object {
+service on new http:Listener(9090) {
     
     // Archive
     resource function delete crm/v3/objects/quotes/[string quoteId]() returns http:Response|error {
