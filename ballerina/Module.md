@@ -68,9 +68,7 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 Before proceeding with the Quickstart, ensure you have obtained the Access Token using the following steps:
 
-1. Create an authorization URL using the following format:
-
-    **_NOTE: If you are using a localhost redirect url, make sure to have a listner running at the relevant port before executing the next step. You can use [this gist](https://gist.github.com/lnash94/0af47bfcb7cc1e3d59e06364b3c86b59) and run it using `bal run`. Alternatively, you can use any other method to bind a listner to the port._**
+1. Create an authorization URL using the following format.
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
