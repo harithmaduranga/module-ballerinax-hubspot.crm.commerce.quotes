@@ -150,10 +150,7 @@ function testUpsertAQuote() returns error? {
 // Test function to upsert a quote
 @test:Config{}
 function testSearchAQuote() returns error? {
-    // PublicObjectSearchRequest payload = {
-    //     properties: ["hs_title", "hs_expiration_date"]
-    // };
-
+    
     PublicObjectSearchRequest payload = {
     filterGroups: [
         {
