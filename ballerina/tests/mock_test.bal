@@ -43,7 +43,7 @@ function testCreateAQuote() returns error? {
 function testGetAQuoteById() returns error? {
     SimplePublicObjectWithAssociations response = check quotesClient->/["0"].get();
 
-    test:assertEquals(response, {
+    SimplePublicObjectWithAssociations expectedQuote = {
             id: "0",
             properties: {
                 "hs_title": "Test Quote 0", 
@@ -51,7 +51,9 @@ function testGetAQuoteById() returns error? {
             },
             createdAt: "2025-01-08", 
             updatedAt: "2025-01-15"
-        }, "Reading this quote is failed.");
+        };
+
+    test:assertEquals(response, expectedQuote, "Reading this quote is failed.");
 }
 
 // Test function to archive a quote by ID 
@@ -76,7 +78,7 @@ function testUpdateAQuoteById() returns error? {
     // Call the Quotes API to update the quote
     SimplePublicObject response = check quotesClient->/["1"].patch(payload);
 
-    test:assertEquals(response, {
+    SimplePublicObject updatedQuote = {
             id: "1",
             properties: {
                 "hs_title": "Test Quote 1", 
@@ -84,7 +86,9 @@ function testUpdateAQuoteById() returns error? {
             },
             createdAt: "2025-01-08", 
             updatedAt: "2025-01-15"
-        }, "Quote update failed.");
+        };
+
+    test:assertEquals(response, updatedQuote, "Quote update failed.");
 }
 
 // Test function to upsert a quote
@@ -111,7 +115,7 @@ function testUpsertAQuote() returns error? {
 
     BatchResponseSimplePublicUpsertObject response = check quotesClient->/batch/upsert.post(payload = payload);
 
-    test:assertEquals(response, {
+    BatchResponseSimplePublicUpsertObject expectedBatch = {
             completedAt: "2025-01-10",
             startedAt: "2025-01-08",
             requestedAt: "2025-01-08",
@@ -138,7 +142,9 @@ function testUpsertAQuote() returns error? {
                 }
             ],
             status: "COMPLETE"
-        }, "Quote upsert failed.");
+        };
+
+    test:assertEquals(response, expectedBatch, "Quote upsert failed.");
 }
 
 // Test function to upsert a quote
@@ -165,7 +171,7 @@ function testSearchAQuote() returns error? {
 
     CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check quotesClient->/search.post(payload = payload);
 
-    SimplePublicObject ob1 = {
+    SimplePublicObject batchOutput1 = {
                     id: "1",
                     properties: {
                         "hs_title": "Test Quote 1", 
@@ -174,7 +180,7 @@ function testSearchAQuote() returns error? {
                     createdAt: "2025-01-08", 
                     updatedAt: "2025-01-15"
                 };
-    SimplePublicObject ob2 = {
+    SimplePublicObject batchOutput2 = {
                     id: "2",
                     properties: {
                         "hs_title": "Test Quote 2", 
@@ -186,7 +192,7 @@ function testSearchAQuote() returns error? {
 
     test:assertEquals(response, {
             total: 1500,
-            results: [ob1, ob2] 
+            results: [batchOutput1, batchOutput2] 
         }, "Quote search failed."); 
 }
 
