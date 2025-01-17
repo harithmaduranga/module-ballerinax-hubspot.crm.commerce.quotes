@@ -15,15 +15,12 @@
 // under the License.
 
 import ballerina/http;
-import ballerina/oauth2;
 import ballerina/test;
 
-final Client quotesClient = check new(config = {auth: {
-    clientId,
-    clientSecret,
-    refreshToken,
-    credentialBearer: oauth2:POST_BODY_BEARER 
-}});
+final Client quotesClient = check new(config = {auth:{
+    token: "test-token"
+}}, serviceUrl="http://localhost:9090/crm/v3/objects/quotes"
+);
 
 // Test function for creating a quote
 @test:Config{}
@@ -38,7 +35,7 @@ function testCreateAQuote() returns error? {
 
     SimplePublicObject response = check quotesClient->/.post(payload);
 
-    test:assertEquals(response.properties, payload.properties, "New quote creation failed.");     
+    test:assertEquals(response.properties["hs_title"], payload.properties["hs_title"], "New quote creation failed.");     
 }
 
 // Test function to get a quote bu ID

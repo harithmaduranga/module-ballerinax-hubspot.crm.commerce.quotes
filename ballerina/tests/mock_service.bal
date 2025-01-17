@@ -15,7 +15,6 @@
 // under the License.
 
 import ballerina/http;
-import ballerina/log;
 
 service on new http:Listener(9090) {
     
@@ -96,7 +95,8 @@ service on new http:Listener(9090) {
         };
     }
 
-    resource isolated function post crm/v3/objects/quotes/search(@http:Payload PublicObjectSearchRequest payload, map<string|string[]> headers = {}) returns CollectionResponseWithTotalSimplePublicObjectForwardPaging|error {
+    resource isolated function post crm/v3/objects/quotes/search(@http:Payload PublicObjectSearchRequest payload, map<string|string[]> headers = {}) 
+                                returns CollectionResponseWithTotalSimplePublicObjectForwardPaging|error {
         SimplePublicObject ob1 = {
                     id: "1",
                     properties: {
