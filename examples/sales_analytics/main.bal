@@ -63,7 +63,6 @@ public function main() returns error? {
             "hs_expiration_date": "2025-04-30"
         }
     };
-
     hsQuotes:BatchInputSimplePublicObjectInputForCreate batchCreatePayload = {
         inputs: [batchInput1, batchInput2] 
     };
@@ -90,9 +89,7 @@ public function main() returns error? {
         propertiesWithHistory: [], 
         inputs: [ob0]
     };
-
     hsQuotes:BatchResponseSimplePublicObject|hsQuotes:BatchResponseSimplePublicObjectWithErrors retrievedQuotes = check storeClient->/batch/read.post(batchGetPayload);
-
     io:println(retrievedQuotes.results);
 
     // Update one sales quote by ID
@@ -114,7 +111,6 @@ public function main() returns error? {
             "hs_expiration_date": "2025-04-30"
         }
     };
-
     hsQuotes:BatchInputSimplePublicObjectBatchInput batchUpdatePayload = {
         inputs: [batchInput3]
     };
@@ -135,7 +131,6 @@ public function main() returns error? {
             id0 
         ]
     };
-
     http:Response batchArchiveResponse = check storeClient->/batch/archive.post(batchArchivePayload); 
     io:println(batchArchiveResponse); 
 }
