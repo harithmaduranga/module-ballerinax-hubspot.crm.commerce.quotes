@@ -29,13 +29,17 @@ OAuth2RefreshTokenGrantConfig auth = {
     credentialBearer: oauth2:POST_BODY_BEARER
 };
 
-final Client hubspotClient = check new (config = {auth});
+final Client hubspotClient = check new ({auth});
 
-string testQuoteId = ""; 
+string testQuoteId = "";
 
+boolean enableLiveServerTest = false;
 
 // Test function for creating a quote
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testCreateNewQuote() returns error? {
     SimplePublicObjectInputForCreate payload = {
         associations: [],
@@ -59,7 +63,10 @@ function testCreateNewQuote() returns error? {
 
 
 // Test function for creating a batch of quotes
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testCreateNewBatchOfQuotes() returns error? {
 
     SimplePublicObjectInputForCreate batchInput1 = {
@@ -93,7 +100,10 @@ function testCreateNewBatchOfQuotes() returns error? {
 
 
 // Test for retrieving all quotes
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testGetAllQuotes() returns error? {
 
     CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response = check hubspotClient->/.get();
@@ -103,7 +113,10 @@ function testGetAllQuotes() returns error? {
 }
 
 // Test function for retrieving a quote
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testGetOneQuote() returns error? {
     SimplePublicObjectWithAssociations response = check hubspotClient->/[testQuoteId].get();
 
@@ -111,7 +124,10 @@ function testGetOneQuote() returns error? {
 }
 
 // Test function for retrieving a batch of quotes 
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testGetBatchOfQuotes() returns error? {
 
     SimplePublicObjectId batchInput0 = {
@@ -132,7 +148,10 @@ function testGetBatchOfQuotes() returns error? {
 
 
 // Archive a quote by ID
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testArchiveOneQuote() returns error?{
 
     http:Response response = check hubspotClient->/["0"].delete(); 
@@ -141,7 +160,10 @@ function testArchiveOneQuote() returns error?{
 }
 
 // Archive batch of quotes by ID
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testArchiveBatchOfQuoteById() returns error?{
 
     SimplePublicObjectId id0 = {id:"0"};
@@ -159,7 +181,10 @@ function testArchiveBatchOfQuoteById() returns error?{
 
 
 // Test function for updating a quote
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testUpdateOneQuote() returns error? {
     SimplePublicObjectInput payload = {
         properties: {
@@ -176,7 +201,10 @@ function testUpdateOneQuote() returns error? {
 }
 
 // Test function for updating a batch of quotes
-@test:Config{}
+@test:Config{
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
+}
 function testUpdateBatchOfQuotes() returns error? {
 
     SimplePublicObjectBatchInput batchInput3 = {
