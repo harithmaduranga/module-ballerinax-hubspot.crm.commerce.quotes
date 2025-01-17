@@ -192,4 +192,3 @@ function testSearchAQuote() returns error? {
             results: [batchOutput1, batchOutput2] 
         }, "Quote search failed."); 
 }
-

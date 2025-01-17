@@ -136,7 +136,6 @@ public function main() returns error? {
         ]
     };
 
-    http:Response batch_archive_response = check storeClient->/batch/archive.post(batchArchivePayload); 
-
-    io:println(batch_archive_response); 
+    http:Response batchArchiveResponse = check storeClient->/batch/archive.post(batchArchivePayload); 
+    io:println(batchArchiveResponse); 
 }
