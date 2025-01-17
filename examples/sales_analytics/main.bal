@@ -17,27 +17,25 @@
 import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
-import ballerinax/hubspot.crm.commerce.quotes as quotes;
+import ballerinax/hubspot.crm.commerce.quotes as hsQuotes;
 
-configurable string & readonly clientId = ?;
-configurable string & readonly clientSecret = ?;
-configurable string & readonly refreshToken = ?;
+configurable string clientId = ?;
+configurable string clientSecret = ?;
+configurable string refreshToken = ?;
 
 public function main() returns error? {
     
-    quotes:OAuth2RefreshTokenGrantConfig auth = {
+    hsQuotes:OAuth2RefreshTokenGrantConfig auth = {
         clientId,
         clientSecret,
         refreshToken,
         credentialBearer: oauth2:POST_BODY_BEARER
     };
 
-    final quotes:Client storeClient = check new (config = {auth});
-
-    string quoteId = "0";
+    final hsQuotes:Client storeClient = check new ({auth});
 
     // Add new sales quote
-    quotes:SimplePublicObjectInputForCreate payload = {
+    hsQuotes:SimplePublicObjectInputForCreate payload = {
         associations: [],
         properties: {
             "hs_title": "Premium Subscription Quote",
@@ -46,11 +44,11 @@ public function main() returns error? {
         }
     };    
     var createdNewQuote = check storeClient->/.post(payload);
-    quoteId = createdNewQuote.id;
+    string quoteId = createdNewQuote.id;
     io:println(createdNewQuote);
 
     // Add a batch of quotes 
-    quotes:SimplePublicObjectInputForCreate ob1 = {
+    hsQuotes:SimplePublicObjectInputForCreate batchInput1 = {
         associations: [],
         properties: {
             "hs_title": "Quote 1", 
@@ -58,7 +56,7 @@ public function main() returns error? {
         }
     };
 
-    quotes:SimplePublicObjectInputForCreate ob2 = {
+    hsQuotes:SimplePublicObjectInputForCreate batchInput2 = {
         associations: [],
         properties: {
             "hs_title": "Quote 2", 
@@ -66,50 +64,50 @@ public function main() returns error? {
         }
     };
 
-    quotes:BatchInputSimplePublicObjectInputForCreate batch_create_payload = {
-        inputs: [ob1, ob2] 
+    hsQuotes:BatchInputSimplePublicObjectInputForCreate batchCreatePayload = {
+        inputs: [batchInput1, batchInput2] 
     };
 
     // Call the Quotes API to create a new quote
-    quotes:BatchResponseSimplePublicObject|quotes:BatchResponseSimplePublicObjectWithErrors createdQuotes = check storeClient->/batch/create.post(batch_create_payload);
+    hsQuotes:BatchResponseSimplePublicObject|hsQuotes:BatchResponseSimplePublicObjectWithErrors createdQuotes = check storeClient->/batch/create.post(batchCreatePayload);
     io:println(createdQuotes.results); 
 
     // Get all existing sales quotes
-    quotes:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allExistingQuotes = check storeClient->/.get();
+    hsQuotes:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allExistingQuotes = check storeClient->/.get();
     io:println(allExistingQuotes); 
 
     // Get one sales quote by ID
-    quotes:SimplePublicObjectWithAssociations quote = check storeClient->/[quoteId].get();
+    hsQuotes:SimplePublicObjectWithAssociations quote = check storeClient->/[quoteId].get();
     io:println(quote);
 
     // Get a batch of quotes
-    quotes:SimplePublicObjectId ob0 = {
+    hsQuotes:SimplePublicObjectId ob0 = {
         id: quoteId 
     };
 
-    quotes:BatchReadInputSimplePublicObjectId batch_get_payload = {
+    hsQuotes:BatchReadInputSimplePublicObjectId batchGetPayload = {
         properties: [],
         propertiesWithHistory: [], 
         inputs: [ob0]
     };
 
-    quotes:BatchResponseSimplePublicObject|quotes:BatchResponseSimplePublicObjectWithErrors retrievedQuotes = check storeClient->/batch/read.post(batch_get_payload);
+    hsQuotes:BatchResponseSimplePublicObject|hsQuotes:BatchResponseSimplePublicObjectWithErrors retrievedQuotes = check storeClient->/batch/read.post(batchGetPayload);
 
     io:println(retrievedQuotes.results);
 
     // Update one sales quote by ID
-    quotes:SimplePublicObjectInput modifyPayload = {
+    hsQuotes:SimplePublicObjectInput modifyPayload = {
         properties: {
             "hs_title": "Premium Subscription Quote",
             "hs_expiration_date": "2025-03-31",
             "hs_currency": "USD"
         }
     };
-    quotes:SimplePublicObject modifiedQuote = check storeClient->/[quoteId].patch(modifyPayload);
+    hsQuotes:SimplePublicObject modifiedQuote = check storeClient->/[quoteId].patch(modifyPayload);
     io:println(modifiedQuote); 
 
     // Update a batch of quotes
-    quotes:SimplePublicObjectBatchInput ob3 = {
+    hsQuotes:SimplePublicObjectBatchInput batchInput3 = {
         id: quoteId,
         properties: {
             "hs_title": "Test Quote 3", 
@@ -117,12 +115,12 @@ public function main() returns error? {
         }
     };
 
-    quotes:BatchInputSimplePublicObjectBatchInput batch_update_payload = {
-        inputs: [ob3]
+    hsQuotes:BatchInputSimplePublicObjectBatchInput batchUpdatePayload = {
+        inputs: [batchInput3]
     };
 
     // Call the Quotes API to create a new quote
-    quotes:BatchResponseSimplePublicObject|quotes:BatchResponseSimplePublicObjectWithErrors modifiedQuotes = check storeClient->/batch/update.post(batch_update_payload);
+    hsQuotes:BatchResponseSimplePublicObject|hsQuotes:BatchResponseSimplePublicObjectWithErrors modifiedQuotes = check storeClient->/batch/update.post(batchUpdatePayload);
     io:println(modifiedQuotes.results); 
 
     // Archive one sales quote by ID
@@ -130,15 +128,15 @@ public function main() returns error? {
     io:println(archive_response);
 
     // Archive a batch of quotes
-    quotes:SimplePublicObjectId id0 = {id:"0"};
+    hsQuotes:SimplePublicObjectId id0 = {id:"0"};
 
-    quotes:BatchInputSimplePublicObjectId batch_archive_payload = {
+    hsQuotes:BatchInputSimplePublicObjectId batchArchivePayload = {
         inputs:[
             id0 
         ]
     };
 
-    http:Response batch_archive_response = check storeClient->/batch/archive.post(batch_archive_payload); 
+    http:Response batch_archive_response = check storeClient->/batch/archive.post(batchArchivePayload); 
 
     io:println(batch_archive_response); 
 }
