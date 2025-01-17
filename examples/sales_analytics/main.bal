@@ -55,7 +55,6 @@ public function main() returns error? {
             "hs_expiration_date": "2025-02-28"
         }
     };
-
     hsQuotes:SimplePublicObjectInputForCreate batchInput2 = {
         associations: [],
         properties: {
@@ -83,7 +82,6 @@ public function main() returns error? {
     hsQuotes:SimplePublicObjectId ob0 = {
         id: quoteId 
     };
-
     hsQuotes:BatchReadInputSimplePublicObjectId batchGetPayload = {
         properties: [],
         propertiesWithHistory: [], 
@@ -125,7 +123,6 @@ public function main() returns error? {
 
     // Archive a batch of quotes
     hsQuotes:SimplePublicObjectId id0 = {id:"0"};
-
     hsQuotes:BatchInputSimplePublicObjectId batchArchivePayload = {
         inputs:[
             id0 
