@@ -62,7 +62,7 @@ function testCreateNewQuote() returns error? {
 @test:Config{}
 function testCreateNewBatchOfQuotes() returns error? {
 
-    SimplePublicObjectInputForCreate ob1 = {
+    SimplePublicObjectInputForCreate batchInput1 = {
         associations: [],
         properties: {
             "hs_title": "Test Quote 1", 
@@ -70,7 +70,7 @@ function testCreateNewBatchOfQuotes() returns error? {
         }
     };
 
-    SimplePublicObjectInputForCreate ob2 = {
+    SimplePublicObjectInputForCreate batchInput2 = {
         associations: [],
         properties: {
             "hs_title": "Test Quote 2", 
@@ -79,7 +79,7 @@ function testCreateNewBatchOfQuotes() returns error? {
     };
 
     BatchInputSimplePublicObjectInputForCreate payload = {
-        inputs: [ob1, ob2] 
+        inputs: [batchInput1, batchInput2] 
     };
 
     // Call the Quotes API to create a new quote
@@ -114,14 +114,14 @@ function testGetOneQuote() returns error? {
 @test:Config{}
 function testGetBatchOfQuotes() returns error? {
 
-    SimplePublicObjectId ob0 = {
+    SimplePublicObjectId batchInput0 = {
         id: testQuoteId 
     };
 
     BatchReadInputSimplePublicObjectId payload = {
         properties: [],
         propertiesWithHistory: [], 
-        inputs: [ob0]
+        inputs: [batchInput0]
     };
 
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspotClient->/batch/read.post(payload);
@@ -179,7 +179,7 @@ function testUpdateOneQuote() returns error? {
 @test:Config{}
 function testUpdateBatchOfQuotes() returns error? {
 
-    SimplePublicObjectBatchInput ob3 = {
+    SimplePublicObjectBatchInput batchInput3 = {
         id: testQuoteId,
         properties: {
             "hs_title": "Test Quote 3", 
@@ -188,7 +188,7 @@ function testUpdateBatchOfQuotes() returns error? {
     };
 
     BatchInputSimplePublicObjectBatchInput payload = {
-        inputs: [ob3]
+        inputs: [batchInput3]
     };
 
     // Call the Quotes API to create a new quote
